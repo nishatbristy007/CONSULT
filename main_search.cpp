@@ -726,22 +726,22 @@ int main(int argc, char *argv[]) {
 //            string output_fname = "test_k" + to_string(int(SL)) + "_l" + to_string(int(L)) + "_p" +
 //                                  to_string(int(p)) + "_alpha" + alpha_s + "_" + input_fq_truct;
 
-            string output_fname = "ucseq_" + input_fq_truct;
-            string output_fname_2 = "ucseq_" + input_fq_truct+ "_2";
+            string output_fname = "ucseq_" + input_fq_truct+"_"+map_name;
+            string output_fname_2 = "search_result/" + input_fq_truct+"_"+map_name+ ".csv";
             ifstream ifs(input_fq);
 
             ofstream outputFile;
-            outputFile.open(output_fname);
+            outputFile.open(output_fname); 
 
             ofstream outputFile_2;
             outputFile_2.open(output_fname_2);
-            outputFile_2 << "Query_read_id, #of matches, match (normalized), jaccard" << endl;
-            uint64_t lines_read = 0;
-            uint64_t reads_matched = 0;
+            outputFile_2 << "Query_read_id,#of matches,match (normalized),jaccard" << endl;
+            uint64_t lines_read = 0; 
+            uint64_t reads_matched = 0; 
 
-            string line_of_file;
-            string name;
-            string token;
+            string line_of_file; 
+            string name; 
+            string token; 
 
 
             uint64_t b;
@@ -796,7 +796,6 @@ int main(int argc, char *argv[]) {
                                     const char *ckmer = kmer_str.c_str();
                                     encodekmer(ckmer, b, b_sig);
                                     i = SL - 1;
-
                                 } else {
                                     string kmer_str = token.substr(i, 1);
                                     //cout << kmer_str << endl;
@@ -1046,11 +1045,11 @@ int main(int argc, char *argv[]) {
                                 //cout << "Iterator points to " << it->first << " = " << it->second << endl;
                                 double jaccard = 0.0;
                                 cout << it->second<< endl;
-                                jaccard = (matched*-1.0)/((it->second+read_len-matched));  //Dunno why it was giving negative value. will fix later. temporarily fixed with (-1.0). 
+                                jaccard = (matched*1.0)/((it->second+read_len-matched));  //Dunno why it was giving negative value. will fix later. temporarily fixed with (-1.0). 
                                 //cout << matched/read_len << " " << jaccard<< endl;
                                 //printf("> %lf\n",normalized);
                                 cout << matched << " "<< read_len<< " "<<normalized << " "<< jaccard<< endl;
-                                outputFile_2 << name <<", "<< matched << ", "<< normalized << " "<< jaccard<< endl;
+                                outputFile_2 << name <<","<< matched << ","<< normalized << ","<< jaccard<< endl;
                             }
                             
                         } 
