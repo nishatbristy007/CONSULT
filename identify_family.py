@@ -51,6 +51,7 @@ f_out.write("query_read_id ")
 for family in families:
     f_out.write(str(family)+" ")
 f_out.write("\n")
+'''
 for key, value in summary_array.items():
     f_out.write(key+",")
     for val in value[:-1]:
@@ -70,4 +71,3 @@ for key in summary_array:
         else:
             f_out.write(str(0)+" ")
     f_out.write("\n")
-'''
