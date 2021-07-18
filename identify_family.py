@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys
+import csv
 
 
 df = pd.read_csv("family.csv")
@@ -31,20 +32,32 @@ for species in df["speciesID"]:
     for query in query_names:
         if query in list(df2["Query_read_id"]):
             i=df2[df2["Query_read_id"]==query]
+            #print("==>",str(float(i["match (normalized)"])))
+            summary_array[query].append(float(i["match (normalized)"]))
+            '''
             if float(i["jaccard"]) >= threshold:
                 summary_array[query].append(1)
             else :
                 summary_array[query].append(0)
+            '''
         else :
-            summary_array[query].append(0)
+            summary_array[query].append(0.0)
         
     count +=1 
 
-f_out = open("family_out.txt",'w')
+#print(summary_array)
+f_out = open("family_out.csv",'w')
 f_out.write("query_read_id ")
 for family in families:
     f_out.write(str(family)+" ")
 f_out.write("\n")
+for key, value in summary_array.items():
+    f_out.write(key+",")
+    for val in value[:-1]:
+        f_out.write(str(val)+",")
+    f_out.write(str(value[-1])+"\n")
+f_out.close()
+'''
 for key in summary_array:
     f_out.write(key+" ")
     for family in families:
@@ -57,4 +70,4 @@ for key in summary_array:
         else:
             f_out.write(str(0)+" ")
     f_out.write("\n")
-        
+'''
