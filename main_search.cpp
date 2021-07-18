@@ -1023,14 +1023,14 @@ int main(int argc, char *argv[]) {
                         // .... BRISTY ....
                         ifstream kmer_count_file("kmer_count.txt");
                         string line;
-                        map<string, int> kmer_count_map;
+                        map<string, uint64_t> kmer_count_map;
                         vector<string> tokens;
 
                         while(getline(kmer_count_file, line)){
                                 stringstream ss(line);
                                 while(getline(ss,line,' ')){
                                     tokens.push_back(line);}
-                                int included_kmer_count = 0;
+                                uint64_t included_kmer_count = 0;
                                 stringstream kc(tokens[1]);
                                 kc >> included_kmer_count;
                                 //cout << included_kmer_count;
